@@ -1,0 +1,36 @@
+{
+  "name": "agentx-sandbox-contracts",
+  "version": "1.0.0",
+  "description": "Smart contract suite for AgentX Sandbox",
+  "main": "exports/index.ts",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.ts --network hardhat",
+    "deploy:amoy": "hardhat run scripts/deploy.ts --network amoy"
+  },
+  "keywords": [
+    "solidity",
+    "hardhat",
+    "agent-economy",
+    "polygon",
+    "amoy"
+  ],
+  "author": "AgentX",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.16",
+    "chai": "^4.3.10",
+    "ethers": "^6.10.0",
+    "hardhat": "^2.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.1",
+    "dotenv": "^16.4.2"
+  }
+}
