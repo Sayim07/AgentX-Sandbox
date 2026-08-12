@@ -4,8 +4,13 @@
 ~$*.docx
 ~$*.xlsx
 
-# Generated PowerPoint Binary Presentations
+# Generated PowerPoint Binary Presentations & Generator Script
 *.pptx
+generate_deck.py
+
+# PRD and Diagram Assets
+Agent-to-Agent-Economy-Sim-Sandbox-PRD.md
+agentx_ui_user_flow_diagram.png
 
 # Environment variables & secret keys
 .env
