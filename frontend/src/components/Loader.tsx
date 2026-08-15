@@ -8,6 +8,8 @@ interface LoaderProps {
 
 export const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
   const [stageIndex, setStageIndex] = useState(0);
+  const onCompleteRef = React.useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   const stages = [
     { text: "Connecting to Polygon Amoy Node...", icon: ShieldCheck },
@@ -20,7 +22,7 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     const timer1 = setTimeout(() => setStageIndex(1), 900);
     const timer2 = setTimeout(() => setStageIndex(2), 1800);
     const timer3 = setTimeout(() => setStageIndex(3), 2700);
-    const timer4 = setTimeout(() => onComplete(), 3400);
+    const timer4 = setTimeout(() => onCompleteRef.current(), 3400);
 
     return () => {
       clearTimeout(timer1);
@@ -28,7 +30,7 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       clearTimeout(timer3);
       clearTimeout(timer4);
     };
-  }, [onComplete]);
+  }, []);
 
   const CurrentIcon = stages[stageIndex].icon;
 

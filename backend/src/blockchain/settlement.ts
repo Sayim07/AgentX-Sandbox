@@ -54,7 +54,7 @@ export class BlockchainSettlementService {
       description: `Settled trade of ${trade.quantity} asset units @ ${trade.price.toFixed(2)} CRED between agents ${trade.buyerAgentId} and ${trade.sellerAgentId}`,
       amount: trade.price * trade.quantity,
       txHash,
-      blockExplorerUrl: `${this.explorerBaseUrl}${txHash}`,
+      blockExplorerUrl: `https://amoy.polygonscan.com/address/${deployedAddresses.AgentCredit}`,
       timestamp: Date.now(),
     };
 
@@ -75,7 +75,7 @@ export class BlockchainSettlementService {
       description: `Escrow #${mockEscrowId} created on TradeEscrow contract for ${serviceCall.serviceType} by buyer ${serviceCall.buyerAgentId}`,
       amount: serviceCall.price,
       txHash,
-      blockExplorerUrl: `${this.explorerBaseUrl}${txHash}`,
+      blockExplorerUrl: `https://amoy.polygonscan.com/address/${deployedAddresses.TradeEscrow}`,
       timestamp: Date.now(),
     };
 
@@ -92,7 +92,7 @@ export class BlockchainSettlementService {
       description: `Released ${serviceCall.price.toFixed(2)} CRED from Escrow #${serviceCall.escrowId} to provider ${serviceCall.providerAgentId}`,
       amount: serviceCall.price,
       txHash,
-      blockExplorerUrl: `${this.explorerBaseUrl}${txHash}`,
+      blockExplorerUrl: `https://amoy.polygonscan.com/address/${deployedAddresses.TradeEscrow}`,
       timestamp: Date.now(),
     };
 

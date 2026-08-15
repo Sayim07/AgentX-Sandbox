@@ -14,6 +14,10 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
+  const handleLoaderComplete = React.useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
   const {
     isConnected,
     simState,
@@ -31,7 +35,7 @@ export const App: React.FC = () => {
       <div className="min-h-screen bg-obsidian text-slate-100 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
         {/* Full-Screen Web3 Matrix Particle Loader */}
         <AnimatePresence>
-          {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+          {isLoading && <Loader onComplete={handleLoaderComplete} />}
         </AnimatePresence>
 
         {!isLoading && (
