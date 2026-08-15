@@ -1,7 +1,7 @@
 {
   "network": "hardhat",
   "chainId": 31337,
-  "deployedAt": "2026-08-13T13:22:31.672Z",
+  "deployedAt": "2026-08-15T15:14:00.750Z",
   "contracts": {
     "AgentCredit": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
