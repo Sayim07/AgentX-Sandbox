@@ -25,12 +25,32 @@ export class BlockchainSettlementService {
 
   constructor() {
     const rpcUrl = process.env.RPC_URL || "https://rpc-amoy.polygon.technology/";
-    const privateKey =
-      process.env.ORCHESTRATOR_PRIVATE_KEY ||
-      "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+    let privateKey = (process.env.ORCHESTRATOR_PRIVATE_KEY || "").trim();
+
+    // Sanitize in case of accidental KEY=value pasting or surrounding quotes
+    if (privateKey.includes("=")) {
+      privateKey = privateKey.split("=").pop()?.trim() || "";
+    }
+    privateKey = privateKey.replace(/['"]+/g, "").trim();
+    if (!privateKey.startsWith("0x") && privateKey.length === 64) {
+      privateKey = `0x${privateKey}`;
+    }
+
+    const defaultFallbackKey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 
     this.provider = new ethers.JsonRpcProvider(rpcUrl);
-    this.orchestratorWallet = new ethers.Wallet(privateKey, this.provider);
+
+    try {
+      if (/^0x[0-9a-fA-F]{64}$/.test(privateKey)) {
+        this.orchestratorWallet = new ethers.Wallet(privateKey, this.provider);
+      } else {
+        throw new Error(`Invalid format (length: ${privateKey.length})`);
+      }
+    } catch (err) {
+      console.warn(`[BlockchainSettlement] Failed to load ORCHESTRATOR_PRIVATE_KEY: ${(err as Error).message}. Using fallback wallet.`);
+      this.orchestratorWallet = new ethers.Wallet(defaultFallbackKey, this.provider);
+    }
+
     this.explorerBaseUrl = "https://amoy.polygonscan.com/tx/";
   }
 
