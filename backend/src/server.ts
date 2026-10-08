@@ -24,6 +24,25 @@ const io = new SocketIOServer(server, {
 
 const orchestrator = new SimulationOrchestrator(io);
 
+// Root Health & Discovery Endpoint
+app.get("/", (req, res) => {
+  const snapshot = orchestrator.getSnapshot();
+  res.json({
+    service: "AgentX Simulation Orchestrator Backend",
+    status: "online",
+    isRunning: snapshot.isRunning,
+    tickCount: snapshot.tickCount,
+    connectedClients: io.engine.clientsCount,
+    endpoints: {
+      status: "/api/status",
+      state: "/api/state",
+      exportLogs: "/api/export-logs",
+      control: "/api/control (POST)",
+      websocket: "ws"
+    }
+  });
+});
+
 // REST API Endpoints
 app.get("/api/status", (req, res) => {
   const snapshot = orchestrator.getSnapshot();
