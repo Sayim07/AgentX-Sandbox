@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: agentx-sandbox-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: TICK_INTERVAL_MS
+        value: 2000
